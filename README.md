@@ -1,71 +1,112 @@
-# new-aurelia-component README
+# New Aurelia Component
 
-This is the README for your extension "new-aurelia-component". After writing up a brief description, we recommend including the following sections.
+A Visual Studio Code extension that simplifies the creation and deletion of Aurelia components by generating all necessary files with proper naming conventions and templates.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension provides commands to quickly scaffold Aurelia components with the following capabilities:
 
-For example if there is an image subfolder under your extension project workspace:
+- **Create Aurelia Component**: Generates TypeScript, HTML, and LESS files with proper naming conventions
+- **Create Aurelia Component Folder**: Generates a folder structure with TypeScript, HTML, and LESS files
+- **Delete Aurelia Component**: Removes all related component files when deleting one file
 
-\!\[feature X\]\(images/feature-x.png\)
+### Creating Components
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+The extension generates three files by default:
+- `component-name.ts` - TypeScript class with Aurelia lifecycle methods
+- `component-name.html` - HTML template with proper structure
+- `component-name.less` - LESS stylesheet with component-specific styling
+
+### Deleting Components
+
+When you delete any component file, the extension automatically removes all related files to keep your workspace clean.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Visual Studio Code 1.74.0 or higher
+- Aurelia project (recommended)
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `newAureliaComponent.fileTypes`: Array of file types to generate with their naming conventions
+  - Default: `[{ "ext": ".ts", "namingCase": "PascalCase" }, { "ext": ".html", "namingCase": "kebab-case" }, { "ext": ".less", "namingCase": "kebab-case" }]`
+- `newAureliaComponent.toDeleteExtensions`: Array of file extensions to delete when removing a component
+  - Default: `[".ts", ".less", ".html", ".js", ".css", ".js.map"]`
+
+### Example Configuration
+
+```json
+{
+    "newAureliaComponent.fileTypes": [
+        { "ext": ".ts", "namingCase": "PascalCase" },
+        { "ext": ".html", "namingCase": "kebab-case" },
+        { "ext": ".scss", "namingCase": "kebab-case" }
+    ],
+    "newAureliaComponent.toDeleteExtensions": [".ts", ".scss", ".html", ".js", ".css", ".js.map"]
+}
+```
+
+## Usage
+
+### Creating a Component
+
+1. Right-click on a folder in the Explorer panel
+2. Select "New Aurelia Component" from the context menu
+3. Enter the component name in kebab-case (e.g., `my-awesome-component`)
+4. The extension will generate all necessary files with appropriate content
+
+### Creating a Component Folder
+
+1. Right-click on a folder in the Explorer panel
+2. Select "New Aurelia Component Folder" from the context menu
+3. Enter the component name in kebab-case (e.g., `my-awesome-component`)
+4. The extension will generate a folder structure with all necessary files and appropriate content
+
+### Deleting a Component
+
+1. Right-click on any component file (`.ts`, `.html`, `.less`, etc.)
+2. Select "Delete Aurelia Component" from the context menu
+3. All related component files will be removed
+
+## Generated File Structure
+
+For a component named `user-profile`, the extension creates:
+
+```
+user-profile.ts      // PascalCase class: UserProfile
+user-profile.html    // Template with proper require statements
+user-profile.less    // Stylesheet with component class selector
+```
+
+## Template Content
+
+The generated files include:
+
+- **TypeScript**: Aurelia component class with all lifecycle methods (`created`, `bind`, `attached`, `detached`, `unbind`)
+- **HTML**: Template with CSS require statement and component wrapper div
+- **LESS**: Component-specific stylesheet with class selector
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Component name validation requires names to start with a letter and contain only letters, numbers, and hyphens
+- Template files must be present in the extension directory for proper file generation
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release with:
+- Aurelia component creation with TypeScript, HTML, and LESS files
+- Component deletion functionality
+- Configurable file types and naming conventions
+- Template-based file generation
 
 ---
 
-## Following extension guidelines
+## Contributing
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+This extension follows VS Code extension guidelines and best practices.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Enjoy building Aurelia applications faster!**
