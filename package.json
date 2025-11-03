@@ -3,12 +3,17 @@
   "displayName": "new-aurelia-component",
   "description": "Create a aurelia component directly when creating a folder",
   "version": "0.0.1",
+  "publisher": "howar",
   "engines": {
     "vscode": "^1.105.0"
   },
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aspen-howar/aurelia-component-extension.git"
+  },
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {

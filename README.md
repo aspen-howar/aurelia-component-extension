@@ -17,6 +17,10 @@ The extension generates three files by default:
 - `component-name.html` - HTML template with proper structure
 - `component-name.less` - LESS stylesheet with component-specific styling
 
+### Creating Component Folders
+
+When creating a component folder, the extension generates a directory containing the three files mentioned above, allowing for better organization of components.   
+
 ### Deleting Components
 
 When you delete any component file, the extension automatically removes all related files to keep your workspace clean.
