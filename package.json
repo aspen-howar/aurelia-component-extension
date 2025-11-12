@@ -2,10 +2,10 @@
   "name": "new-aurelia-component",
   "displayName": "new-aurelia-component",
   "description": "Create a aurelia component directly when creating a folder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "howar",
   "engines": {
-    "vscode": "^1.105.0"
+    "vscode": "^1.74.0"
   },
   "categories": [
     "Other"
@@ -14,7 +14,9 @@
     "type": "git",
     "url": "https://github.com/aspen-howar/aurelia-component-extension.git"
   },
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:html"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -53,6 +55,12 @@
         }
       ]
     },
+    "snippets": [
+      {
+        "language": "html",
+        "path": "./snippets/aurelia-components.json"
+      }
+    ],
     "configuration": {
       "title": "New Aurelia Component",
       "properties": {
@@ -108,14 +116,15 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && npm run copy-templates",
+    "copy-templates": "pwsh -Command \"Copy-Item -Path 'src/template/*' -Destination 'out/template/' -Force\"",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.105.0",
+    "@types/vscode": "^1.74.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.45.0",

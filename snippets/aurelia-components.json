@@ -1,0 +1,188 @@
+{
+  "check-box": {
+    "prefix": "<check-box",
+    "body": [
+      "<check-box checked.bind=\"${1:false}\" disabled.bind=\"${2:false}\" label=\"${3}\"></check-box>$0"
+    ],
+    "description": "Insert check-box component"
+  },
+  "text-field": {
+    "prefix": "<text-field",
+    "body": [
+      "<text-field value.bind=\"${1}\" label=\"${2}\" disabled.bind=\"${3:false}\" placeholder=\"${4}\"></text-field>$0"
+    ],
+    "description": "Insert text-field component"
+  },
+  "text-area": {
+    "prefix": "<text-area",
+    "body": [
+      "<text-area value.bind=\"${1}\" label=\"${2}\" disabled.bind=\"${3:false}\" placeholder=\"${4}\" rows=\"${5:3}\"></text-area>$0"
+    ],
+    "description": "Insert text-area component"
+  },
+  "number-field": {
+    "prefix": "<number-field",
+    "body": [
+      "<number-field value.bind=\"${1}\" label=\"${2}\" disabled.bind=\"${3:false}\" min=\"${4}\" max=\"${5}\" step=\"${6:1}\"></number-field>$0"
+    ],
+    "description": "Insert number-field component"
+  },
+  "number-input": {
+    "prefix": "<number-input",
+    "body": [
+      "<number-input value.bind=\"${1}\" disabled.bind=\"${2:false}\" min=\"${3}\" max=\"${4}\" step=\"${5:1}\"></number-input>$0"
+    ],
+    "description": "Insert number-input component"
+  },
+  "switch-button": {
+    "prefix": "<switch-button",
+    "body": [
+      "<switch-button switch-on.bind=\"${1:false}\" disabled.bind=\"${2:false}\" label=\"${3}\"></switch-button>$0"
+    ],
+    "description": "Insert switch-button component"
+  },
+  "radio-button": {
+    "prefix": "<radio-button",
+    "body": [
+      "<radio-button checked.bind=\"${1}\" value=\"${2}\" disabled.bind=\"${3:false}\" label=\"${4}\" name=\"${5}\"></radio-button>$0"
+    ],
+    "description": "Insert radio-button component"
+  },
+  "dropdown-button": {
+    "prefix": "<dropdown-button",
+    "body": [
+      "<dropdown-button option.bind=\"${1:dropdownOption}\" disabled.bind=\"${2:false}\">",
+      "\t$0",
+      "</dropdown-button>"
+    ],
+    "description": "Insert dropdown-button component"
+  },
+  "select-menu": {
+    "prefix": "<select-menu",
+    "body": [
+      "<select-menu value.bind=\"${1}\" options.bind=\"${2:selectOptions}\" disabled.bind=\"${3:false}\" placeholder=\"${4}\" searchable.bind=\"${5:false}\"></select-menu>$0"
+    ],
+    "description": "Insert select-menu component"
+  },
+  "search-box": {
+    "prefix": "<search-box",
+    "body": [
+      "<search-box value.bind=\"${1}\" options.bind=\"${2:searchOptions}\" disabled.bind=\"${3:false}\" placeholder=\"${4}\" multiple.bind=\"${5:false}\"></search-box>$0"
+    ],
+    "description": "Insert search-box component"
+  },
+  "autocomplete-box": {
+    "prefix": "<autocomplete-box",
+    "body": [
+      "<autocomplete-box value.bind=\"${1}\" get-suggestions.call=\"${2:getSuggestions(\\$event)}\" disabled.bind=\"${3:false}\" placeholder=\"${4:Search...}\"></autocomplete-box>$0"
+    ],
+    "description": "Insert autocomplete-box component"
+  },
+  "datetime-input": {
+    "prefix": "<datetime-input",
+    "body": [
+      "<datetime-input value.bind=\"${1}\" format-string=\"${2}\" disabled.bind=\"${3:false}\" show-time-picker.bind=\"${4:true}\"></datetime-input>$0"
+    ],
+    "description": "Insert datetime-input component"
+  },
+  "datetime-picker-view": {
+    "prefix": "<datetime-picker-view",
+    "body": [
+      "<datetime-picker-view value.bind=\"${1}\" format-string=\"${2}\" show-time-picker.bind=\"${3:true}\"></datetime-picker-view>$0"
+    ],
+    "description": "Insert datetime-picker-view component"
+  },
+  "calendar-picker": {
+    "prefix": "<calendar-picker",
+    "body": [
+      "<calendar-picker value.bind=\"${1}\" disabled.bind=\"${2:false}\"></calendar-picker>$0"
+    ],
+    "description": "Insert calendar-picker component"
+  },
+  "date-range-input": {
+    "prefix": "<date-range-input",
+    "body": [
+      "<date-range-input start-value.bind=\"${1}\" end-value.bind=\"${2}\" disabled.bind=\"${3:false}\"></date-range-input>$0"
+    ],
+    "description": "Insert date-range-input component"
+  },
+  "date-range-picker": {
+    "prefix": "<date-range-picker",
+    "body": [
+      "<date-range-picker start-value.bind=\"${1}\" end-value.bind=\"${2}\" disabled.bind=\"${3:false}\"></date-range-picker>$0"
+    ],
+    "description": "Insert date-range-picker component"
+  },
+  "color-picker": {
+    "prefix": "<color-picker",
+    "body": [
+      "<color-picker value.bind=\"${1}\" disabled.bind=\"${2:false}\" show-hex-text.bind=\"${3:true}\"></color-picker>$0"
+    ],
+    "description": "Insert color-picker component"
+  },
+  "progress-bar": {
+    "prefix": "<progress-bar",
+    "body": [
+      "<progress-bar value.bind=\"${1:0}\"></progress-bar>$0"
+    ],
+    "description": "Insert progress-bar component"
+  },
+  "input-chips": {
+    "prefix": "<input-chips",
+    "body": [
+      "<input-chips chips.bind=\"${1:chipsArray}\" disabled.bind=\"${2:false}\" chip-style=\"${3}\"></input-chips>$0"
+    ],
+    "description": "Insert input-chips component"
+  },
+  "choice-chips": {
+    "prefix": "<choice-chips",
+    "body": [
+      "<choice-chips chips.bind=\"${1:chipsArray}\" disabled.bind=\"${2:false}\" chip-style=\"${3}\"></choice-chips>$0"
+    ],
+    "description": "Insert choice-chips component"
+  },
+  "filter-chips": {
+    "prefix": "<filter-chips",
+    "body": [
+      "<filter-chips chips.bind=\"${1:chipsArray}\" disabled.bind=\"${2:false}\" chip-style=\"${3}\"></filter-chips>$0"
+    ],
+    "description": "Insert filter-chips component"
+  },
+  "dropdown-chips": {
+    "prefix": "<dropdown-chips",
+    "body": [
+      "<dropdown-chips chips.bind=\"${1:chipsArray}\" options.bind=\"${2:chipOptions}\" disabled.bind=\"${3:false}\"></dropdown-chips>$0"
+    ],
+    "description": "Insert dropdown-chips component"
+  },
+  "dropdown-search-box": {
+    "prefix": "<dropdown-search-box",
+    "body": [
+      "<dropdown-search-box value.bind=\"${1}\" options.bind=\"${2:searchOptions}\" disabled.bind=\"${3:false}\" placeholder=\"${4}\"></dropdown-search-box>$0"
+    ],
+    "description": "Insert dropdown-search-box component"
+  },
+  "navigation-tree": {
+    "prefix": "<navigation-tree",
+    "body": [
+      "<navigation-tree tree-data.bind=\"${1:treeData}\" selected-node.bind=\"${2}\"></navigation-tree>$0"
+    ],
+    "description": "Insert navigation-tree component"
+  },
+  "group-menu": {
+    "prefix": "<group-menu",
+    "body": [
+      "<group-menu menu-data.bind=\"${1:menuData}\" disabled.bind=\"${2:false}\"></group-menu>$0"
+    ],
+    "description": "Insert group-menu component"
+  },
+  "tooltip": {
+    "prefix": "<tooltip",
+    "body": [
+      "<tooltip text=\"${1}\" position=\"${2:top}\">",
+      "\t$0",
+      "</tooltip>"
+    ],
+    "description": "Insert tooltip component"
+  }
+}

@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { toKebabCase } from './util';
 import { createAureliaComponent, inputComponentName } from './create';
 import { deleteAureliaComponent } from './delete';
+import { AureliaDefinitionProvider } from './definitionProvider';
 
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -40,9 +41,15 @@ export async function activate(context: vscode.ExtensionContext) {
 		deleteAureliaComponent(uri);
 	});
 
+	const definitionProvider = vscode.languages.registerDefinitionProvider(
+		{ scheme: 'file', language: 'html' },
+		new AureliaDefinitionProvider()
+	);
+
 	context.subscriptions.push(createDisposable);
 	context.subscriptions.push(createFolderDisposable);
 	context.subscriptions.push(deleteDisposable);
+	context.subscriptions.push(definitionProvider);
 }
 
 export function deactivate() { }

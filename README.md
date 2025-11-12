@@ -9,6 +9,8 @@ This extension provides commands to quickly scaffold Aurelia components with the
 - **Create Aurelia Component**: Generates TypeScript, HTML, and LESS files with proper naming conventions
 - **Create Aurelia Component Folder**: Generates a folder structure with TypeScript, HTML, and LESS files
 - **Delete Aurelia Component**: Removes all related component files when deleting one file
+- **Go to Definition**: Press F12 on custom Aurelia component tags in HTML to navigate to their TypeScript class definitions
+- **HTML Snippets**: Quick insertion of common Aurelia component tags with IntelliSense
 
 ### Creating Components
 
@@ -73,6 +75,50 @@ This extension contributes the following settings:
 1. Right-click on any component file (`.ts`, `.html`, `.less`, etc.)
 2. Select "Delete Aurelia Component" from the context menu
 3. All related component files will be removed
+
+### HTML Snippets
+
+The extension provides Aurelia-focused HTML element snippets. Begin typing a tag like `<check-box`, `<text-field`, `<autocomplete-box`, etc. in an HTML file and use IntelliSense (Ctrl+Space) to expand.
+
+Snippets include tab stops for fast filling of attributes. Example expansion for `<autocomplete-box`:
+
+```html
+<autocomplete-box value.bind="${1}" get-suggestions.call="${2:getSuggestions($event)}" disabled.bind="${3:false}" placeholder="${4:Search...}"></autocomplete-box>
+```
+
+Then press Tab to move through:
+1. Bound value
+2. Suggestion callback
+3. Disabled flag
+4. Placeholder text
+
+Available prefixes (partial list):
+`<check-box`, `<text-field`, `<text-area`, `<number-field`, `<number-input`, `<switch-button`, `<radio-button`, `<dropdown-button`, `<select-menu`, `<search-box`, `<autocomplete-box`, `<datetime-input`, `<datetime-picker-view`, `<calendar-picker`, `<date-range-input`, `<date-range-picker`, `<color-picker`, `<progress-bar`, `<input-chips`, `<choice-chips`, `<filter-chips`, `<dropdown-chips`, `<dropdown-search-box`, `<navigation-tree`, `<group-menu`, `<tooltip`.
+
+You can view or customize these in `snippets/aurelia-components.json` inside the extension source.
+
+### Go to Definition
+
+The extension provides intelligent navigation for Aurelia custom elements:
+
+1. Open an HTML file containing Aurelia component tags (e.g., `<my-component>`, `<user-profile>`)
+2. Place your cursor on the component tag name
+3. Press **F12** (or right-click and select "Go to Definition")
+4. The extension will navigate to the corresponding TypeScript class file
+
+**How it works:**
+- Recognizes kebab-case custom element tags (e.g., `<my-component>`)
+- Searches for the matching `.ts` file (e.g., `my-component.ts`)
+- Jumps to the `export class` declaration (e.g., `export class MyComponent`)
+- Searches in the same directory first, then the entire workspace
+
+**Example:**
+```html
+<template>
+  <user-profile user.bind="currentUser"></user-profile>
+  <!-- Press F12 on "user-profile" to jump to user-profile.ts -->
+</template>
+```
 
 ## Generated File Structure
 

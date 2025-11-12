@@ -15,12 +15,13 @@ export function deleteAureliaComponent(uri: vscode.Uri) {
         return;
     }
 
-    try {
-        toDeleteExtensions.forEach(ext => {
-            const filePath = path.join(parsedPath.dir, parsedPath.name + ext);
+    toDeleteExtensions.forEach(ext => {
+        const filePath = path.join(parsedPath.dir, parsedPath.name + ext);
+
+        vscode.workspace.fs.stat(vscode.Uri.file(filePath)).then(() => {
             vscode.workspace.fs.delete(vscode.Uri.file(filePath));
+        }, (error) => {
+            vscode.window.showErrorMessage('Failed to delete Aurelia component files: ' + error);
         });
-    } catch (error) {
-        vscode.window.showErrorMessage('Failed to delete Aurelia component files: ' + error);
-    }
+    });
 }
