@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { toPascalCase } from './util';
+import { toPascalCase } from '../util';
 
 const componentName = "_COMPONENT_NAME_";
 

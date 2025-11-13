@@ -117,7 +117,7 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./ && npm run copy-templates",
-    "copy-templates": "pwsh -Command \"Copy-Item -Path 'src/template/*' -Destination 'out/template/' -Force\"",
+    "copy-templates": "pwsh -Command \"Copy-Item -Path 'src/component/template/*' -Destination 'out/component/template/' -Force\"",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
