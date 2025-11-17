@@ -20,8 +20,6 @@ export function deleteAureliaComponent(uri: vscode.Uri) {
 
         vscode.workspace.fs.stat(vscode.Uri.file(filePath)).then(() => {
             vscode.workspace.fs.delete(vscode.Uri.file(filePath));
-        }, (error) => {
-            vscode.window.showErrorMessage('Failed to delete Aurelia component files: ' + error);
-        });
+        })
     });
 }

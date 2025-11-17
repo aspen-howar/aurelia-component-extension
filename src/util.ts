@@ -41,3 +41,7 @@ export async function findFilesInUIRoot(document: vscode.TextDocument, ext: stri
         return vscode.workspace.findFiles(pattern, '**/node_modules/**');
     }
 }
+
+export function isObject(item: any): item is Record<string, any> {
+    return (item && typeof item === 'object' && !Array.isArray(item));
+}

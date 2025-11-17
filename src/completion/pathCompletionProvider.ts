@@ -3,9 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { getRootPath, REQUIRED_PATH_REGEX } from '../util';
 
-export class AureliaCompletionProvider implements vscode.CompletionItemProvider {
-    private folderCache: Map<string, vscode.CompletionItem[]> = new Map();
-
+export class PathCompletionProvider implements vscode.CompletionItemProvider {
     public async provideCompletionItems(
         document: vscode.TextDocument,
         position: vscode.Position,
@@ -31,21 +29,16 @@ export class AureliaCompletionProvider implements vscode.CompletionItemProvider 
             fullPath = path.join(path.dirname(document.uri.fsPath), pathMatch[1]);
         }
 
-        return this.getFolderCompletions(fullPath);
+        return this.getCompletions(fullPath);
     }
 
-    private async getFolderCompletions(
-        relativePath: string
+    private async getCompletions(
+        absolutePath: string
     ): Promise<vscode.CompletionItem[]> {
-        const cacheKey = relativePath;
-        if (this.folderCache.has(cacheKey)) {
-            return this.folderCache.get(cacheKey)!;
-        }
-
         const completionItems: vscode.CompletionItem[] = [];
 
         try {
-            const entries = await fs.promises.readdir(relativePath, { withFileTypes: true });
+            const entries = await fs.promises.readdir(absolutePath, { withFileTypes: true });
 
             for (const entry of entries) {
                 if (!entry.isDirectory() && !entry.isFile()) {
@@ -60,18 +53,16 @@ export class AureliaCompletionProvider implements vscode.CompletionItemProvider 
                     continue;
                 }
 
-                const completionItem = entry.isDirectory() ? this.getDirectoryCompletionItem(entry, relativePath) : this.getFileCompletionItem(entry, relativePath);
+                const completionItem = entry.isDirectory() ? this.getDirectoryCompletionItem(entry, absolutePath) : this.getFileCompletionItem(entry, absolutePath);
                 completionItems.push(completionItem);
 
-                const componentItem = this.getComponentCompletionItem(entry, relativePath);
+                const componentItem = this.getComponentCompletionItem(entry, absolutePath);
                 if (componentItem) {
                     completionItems.unshift(componentItem);
                 }
             }
-
-            this.folderCache.set(cacheKey, completionItems);
         } catch (error) {
-            console.error(`Error reading directory ${relativePath}:`, error);
+            console.error(`Error reading directory ${absolutePath}:`, error);
         }
 
         return completionItems;
@@ -121,9 +112,5 @@ export class AureliaCompletionProvider implements vscode.CompletionItemProvider 
         }
 
         return null;
-    }
-
-    public clearCache() {
-        this.folderCache.clear();
     }
 }

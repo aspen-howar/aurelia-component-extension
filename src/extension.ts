@@ -2,8 +2,9 @@ import * as vscode from 'vscode';
 import { toKebabCase } from './util';
 import { createAureliaComponent, inputComponentName } from './component/create';
 import { deleteAureliaComponent } from './component/delete';
-import { AureliaDefinitionProvider, cleanUp } from './definition/definitionProvider';
-import { AureliaCompletionProvider } from './completion/completionProvider';
+import { AureliaDefinitionProvider } from './definition/definitionProvider';
+import { PathCompletionProvider } from './completion/pathCompletionProvider';
+import { TAttributeCompletionProvider } from './completion/tAttributeCompletionProvider';
 
 export async function activate(context: vscode.ExtensionContext) {
 	const createDisposable = vscode.commands.registerCommand('new-aurelia-component.create', async (uri: vscode.Uri) => {
@@ -46,19 +47,50 @@ export async function activate(context: vscode.ExtensionContext) {
 		new AureliaDefinitionProvider()
 	);
 
-	const completionProvider = vscode.languages.registerCompletionItemProvider(
+	const pathCompletionProvider = vscode.languages.registerCompletionItemProvider(
 		{ scheme: 'file', language: 'html' },
-		new AureliaCompletionProvider(),
+		new PathCompletionProvider(),
 		'/'
 	);
+
+	const tAttributeCompletionProvider = vscode.languages.registerCompletionItemProvider(
+		{ scheme: 'file', language: 'html' },
+		new TAttributeCompletionProvider(),
+		"="
+	);
+
+	const changeListener = vscode.workspace.onDidChangeTextDocument(async (event) => {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor || editor.document !== event.document) {
+			return;
+		}
+
+		if (editor.document.languageId !== 'html') {
+			return;
+		}
+
+		for (const change of event.contentChanges) {
+			if ((['""', "''"].includes(change.text)) && change.range.start.character > 0) {
+				const line = editor.document.lineAt(change.range.start.line);
+				const textBefore = line.text.substring(0, change.range.start.character);
+				
+				if (textBefore.match(/\bt\s*=$/)) {
+					setTimeout(() => {
+						vscode.commands.executeCommand('editor.action.triggerSuggest');
+					}, 50);
+				}
+			}
+		}
+	});
 
 	context.subscriptions.push(createDisposable);
 	context.subscriptions.push(createFolderDisposable);
 	context.subscriptions.push(deleteDisposable);
 	context.subscriptions.push(definitionProvider);
-	context.subscriptions.push(completionProvider);
+	context.subscriptions.push(pathCompletionProvider);
+	context.subscriptions.push(tAttributeCompletionProvider);
+	context.subscriptions.push(changeListener);
 }
 
 export function deactivate() { 
-	cleanUp();
 }

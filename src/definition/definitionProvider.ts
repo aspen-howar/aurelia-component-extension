@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { findFilesInUIRoot, REQUIRED_PATH_REGEX, CUSTOM_COMPONENT_REGEX } from '../util';
 
-const cache = new Map<string, vscode.Location>();
 const extMappings: Record<string, string> = {
     ".css": ".less"
 }
@@ -34,11 +33,8 @@ export class AureliaDefinitionProvider implements vscode.DefinitionProvider {
     }
 
     private async findFileByPath(refrenceFilePath: string): Promise<vscode.Location | null> {
-        if (cache.has(refrenceFilePath)) {
-            return cache.get(refrenceFilePath)!;
-        }
-
         let fileUri = vscode.Uri.file(refrenceFilePath);
+
         try {
             await vscode.workspace.fs.stat(fileUri);
         } catch {
@@ -59,7 +55,6 @@ export class AureliaDefinitionProvider implements vscode.DefinitionProvider {
         }
 
         const location = new vscode.Location(fileUri, new vscode.Position(0, 0));
-        cache.set(refrenceFilePath, location);
         return location;
     }
 
@@ -77,22 +72,15 @@ export class AureliaDefinitionProvider implements vscode.DefinitionProvider {
         document: vscode.TextDocument,
         tagName: string,
     ): Promise<vscode.Location | null> {
-        if (cache.has(tagName)) {
-            return cache.get(tagName)!;
-        }
-
         const localHtmlFiles = await findFilesInUIRoot(document, ".html");
         const commonHtmlFiles = await findFilesInUIRoot(document, ".html", true);
 
-        for (const file of [...commonHtmlFiles, ...localHtmlFiles]) {
-            const location = new vscode.Location(file, new vscode.Position(0, 0));
-            cache.set(path.basename(file.fsPath, path.extname(file.fsPath)), location);
+        for (const file of [...localHtmlFiles, ...commonHtmlFiles]) {
+            if (tagName === path.basename(file.fsPath, path.extname(file.fsPath))) {
+                return new vscode.Location(file, new vscode.Position(0, 0));
+            }
         }
 
-        return cache.get(tagName) ?? null;
+        return null;
     }
-}
-
-export function cleanUp() {
-    cache.clear();
 }

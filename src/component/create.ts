@@ -9,7 +9,7 @@ enum NamingCase {
 }
 
 async function getFileTemplate(ext: string, context: vscode.ExtensionContext): Promise<string> {
-    const templatePath = vscode.Uri.joinPath(context.extensionUri, 'src', 'template', `template${ext}`);
+    const templatePath = vscode.Uri.joinPath(context.extensionUri, 'src', 'component/template', `template${ext}`);
 
     try {
         const templateContent = await vscode.workspace.fs.readFile(templatePath);
